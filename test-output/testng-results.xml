@@ -2,15 +2,19 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="193864" started-at="2017-02-08T19:20:34Z" finished-at="2017-02-08T19:23:48Z">
+  <suite name="Default suite" duration-ms="99910" started-at="2017-02-08T20:47:34Z" finished-at="2017-02-08T20:49:14Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="193864" started-at="2017-02-08T19:20:34Z" finished-at="2017-02-08T19:23:48Z">
+    <test name="Default test" duration-ms="99910" started-at="2017-02-08T20:47:34Z" finished-at="2017-02-08T20:49:14Z">
       <class name="MobileAuto.Automation.Test1">
-        <test-method status="PASS" signature="StartServerTest()[pri:0, instance:MobileAuto.Automation.Test1@26653222]" name="StartServerTest" duration-ms="193815" started-at="2017-02-09T00:50:34Z" finished-at="2017-02-09T00:53:48Z">
+        <test-method status="PASS" signature="StartServerTest()[pri:0, instance:MobileAuto.Automation.Test1@6f7fd0e6]" name="StartServerTest" is-config="true" duration-ms="92218" started-at="2017-02-09T02:17:34Z" finished-at="2017-02-09T02:19:06Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- StartServerTest -->
+        <test-method status="PASS" signature="firstTap()[pri:0, instance:MobileAuto.Automation.Test1@6f7fd0e6]" name="firstTap" duration-ms="7678" started-at="2017-02-09T02:19:06Z" finished-at="2017-02-09T02:19:14Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- firstTap -->
       </class> <!-- MobileAuto.Automation.Test1 -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

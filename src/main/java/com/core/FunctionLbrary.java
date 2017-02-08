@@ -39,7 +39,15 @@ public class FunctionLbrary {
 	Properties prop = new Properties();
 	String propFileName = System.getProperty("user.dir")+"/resources/config.properties";
 	InputStream inputStream ;
-	void startServeriOS(String platform, String platformVersion, String appPath, String deviceName, String UDID, String reset) throws MalformedURLException, IOException
+	public WebDriver getDriveriOS()
+	{
+		return driver;
+	}
+	public AndroidDriver <WebElement> gertDriverAndroid()
+	{
+		return driverA;
+	}
+	public void startServeriOS(String platform, String platformVersion, String appPath, String deviceName, String UDID, String reset) throws MalformedURLException, IOException
 	{
 		appiumService = AppiumDriverLocalService.buildDefaultService();
 		appiumService.start();
