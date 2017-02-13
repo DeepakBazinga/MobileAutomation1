@@ -10,19 +10,19 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 
-public class FunctionLbrary {
-	public WebDriver driver;
-	public AndroidDriver<WebElement> driverA;
+public class FunctionLbrary implements  LoggingMethods {
+	public IOSDriver<IOSElement> driver;
+	public AndroidDriver<AndroidElement> driverA;
     AppiumDriverLocalService appiumService;
     String appiumServiceUrl;
 	Properties prop = new Properties();
@@ -30,14 +30,17 @@ public class FunctionLbrary {
 	InputStream inputStream ;
 	public WebDriver getDriveriOS()
 	{
+		log(true,"getDriveriOS");
 		return driver;
 	}
-	public AndroidDriver <WebElement> gertDriverAndroid()
+	public AndroidDriver<AndroidElement> gertDriverAndroid()
 	{
+		log(true,"gertDriverAndroid");
 		return driverA;
 	}
 	public void startServeriOS(String platform, String platformVersion, String appPath, String deviceName, String UDID, String reset) throws MalformedURLException, IOException
 	{
+		log(true,"startServeriOS : Appium Version-1.6.3"+" Device Name-"+deviceName+" iOS Version-"+platformVersion+" UDID-"+UDID+" Application Path-"+appPath);
 		appiumService = AppiumDriverLocalService.buildDefaultService();
 		appiumService.start();
 		appiumServiceUrl = appiumService.getUrl().toString();
@@ -52,7 +55,7 @@ public class FunctionLbrary {
 	    cap.setCapability(MobileCapabilityType.APP,f.getAbsolutePath());
 	    cap.setCapability("noReset", reset);
 	    try {
-	        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);   
+	        driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);   
 	    } catch (MalformedURLException e) {
 	        e.printStackTrace();
 	    } catch (Exception e) {
@@ -61,15 +64,15 @@ public class FunctionLbrary {
 	}
 
 	public void stopServeriOS() {
-		System.out.println("Stop driver");
+		log(true,"stopServeriOS");
 		driver.quit();
-		System.out.println("Stop appium service");
+		log(true,"Stop appium service");
 		appiumService.stop();
 	}
 	
 	public void startServerAndroid(String appPath, String reset, String deviceName, String OSVersion, String platform,String appID) throws MalformedURLException
 	{
-		
+		log(true,"startServeriOS : Appium Version-1.6.3"+" Device Name-"+deviceName+" Android Version-"+OSVersion+" Package Name-"+appID+" Application Path-"+appPath);
 		appiumService = AppiumDriverLocalService.buildDefaultService();
 		appiumService.start();
 		appiumServiceUrl = appiumService.getUrl().toString();
@@ -84,20 +87,20 @@ public class FunctionLbrary {
         capabilities.setCapability("platformName", platform);
         capabilities.setCapability("app", app.getAbsolutePath());
         capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, appID);
-        driverA = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        driverA = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         driverA.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}
 	public void stopAndroidServer()
 	{
-		
-			System.out.println("Stop driver");
+			log(true,"stopAndroidServer");
 			driverA.quit();
-			System.out.println("Stop appium service");
+			log(true,"Stop appium service");
 			appiumService.stop();
 	}
 
 	public void startApplication() throws MalformedURLException , IOException
 	{
+		log(true,"startApplication");
 		inputStream = new FileInputStream(propFileName);
 		prop.load(inputStream);
 		inputStream = new FileInputStream(propFileName);
@@ -124,6 +127,7 @@ public class FunctionLbrary {
 	}
 	public void stopApplication(String platform)
 	{
+		log(true,"stopApplication");
 		if(platform.equalsIgnoreCase("iOS"))
 		{
 			stopServeriOS();
