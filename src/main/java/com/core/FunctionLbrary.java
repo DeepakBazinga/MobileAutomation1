@@ -17,6 +17,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 
@@ -47,13 +48,18 @@ public class FunctionLbrary implements  LoggingMethods {
         System.out.println("Appium Service Address : - "+ appiumServiceUrl);
 		DesiredCapabilities cap = new DesiredCapabilities();
 	    File f = new File(appPath);
-	    cap.setCapability(MobileCapabilityType.APPIUM_VERSION, "1.6.3");
-	    cap.setCapability(MobileCapabilityType.PLATFORM_NAME, platform);
-	    cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, platformVersion);
-	    cap.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-	    cap.setCapability(MobileCapabilityType.UDID, UDID);
+	    cap.setCapability("realDeviceLogger", "/usr/local/lib/node_modules/deviceconsole/");
+	    cap.setCapability("xcodeConfigfile", "/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent/xcodeConfigFile");
+	    cap.setCapability("automationName", "XCUITest");
+	    cap.setCapability(IOSMobileCapabilityType.APP_NAME, "1.6.3");
+	    cap.setCapability(IOSMobileCapabilityType.APP_NAME, f.getAbsolutePath());
+	    cap.setCapability(IOSMobileCapabilityType.PLATFORM, platform);
+	    cap.setCapability(IOSMobileCapabilityType.VERSION, platformVersion);
+	    cap.setCapability("udid", UDID);
+	    cap.setCapability("deviceName",deviceName);
+	    //cap.setCapability("fullReset", true);
 	    cap.setCapability(MobileCapabilityType.APP,f.getAbsolutePath());
-	    cap.setCapability("noReset", reset);
+	    //cap.setCapability("noReset", false);
 	    try {
 	        driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);   
 	    } catch (MalformedURLException e) {
@@ -82,11 +88,11 @@ public class FunctionLbrary implements  LoggingMethods {
         capabilities.setCapability("no",true);
         capabilities.setCapability("noReset", reset);
         capabilities.setCapability("deviceName", deviceName);
-        capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
-        capabilities.setCapability(CapabilityType.VERSION, OSVersion);
+        capabilities.setCapability("platformVersion", OSVersion);
+        //capabilities.setCapability(CapabilityType.VERSION, OSVersion);
         capabilities.setCapability("platformName", platform);
-        capabilities.setCapability("app", app.getAbsolutePath());
-        capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, appID);
+        capabilities.setCapability("appPath", app.getAbsolutePath());
+        capabilities.setCapability("udid", appID);
         driverA = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         driverA.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}

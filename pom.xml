@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>MobileAutoDT</groupId>
-  <artifactId>Automation</artifactId>
-  <version>1.1.7.7</version>
+  <artifactId>MobileAutomationDT</artifactId>
+  <version>1.1.8</version>
   <packaging>jar</packaging>
 
   <name>Automation</name>
