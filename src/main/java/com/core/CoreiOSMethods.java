@@ -1,35 +1,37 @@
 package com.core;
 
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.apache.commons.logging.impl.Log4JLogger;
-import org.apache.log4j.Logger;
 import com.core.LoggingMethods;
-
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.SwipeElementDirection;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.ios.IOSElement;
-import org.apache.log4j.BasicConfigurator;
 import com.core.FunctionLbrary;
 
 public class CoreiOSMethods extends FunctionLbrary implements LoggingMethods 
 {
 	
-		public void tapiOS(By locator,int finger)
+		public void tapiOS(MobileBy locator,int finger)
 		{
 			log(true,"tapiOS : "+locator);
 			IOSElement element= (IOSElement) driver.findElement(locator);
 			log(true,"tapiOS : "+element);
 			element.tap(finger, 2000);
 		}
-		public void sendKeysiOS(By locator, String text)
+		public void sendKeysiOS(MobileBy locator, String text)
 		{
 			log(true,"sendKeysiOS "+text+"to : "+locator);
 			IOSElement element= (IOSElement) driver.findElement(locator);
 			log(true,"sendKeysiOS : "+element);
 			element.sendKeys(text);
 		}
-		public void waitforElement(By locator) throws InterruptedException
+		public void getKeyBoardAndSendKeysiOS(String text)
+		{
+			driver.getKeyboard().sendKeys(text);
+		}
+		public void waitforElement(MobileBy locator) throws InterruptedException
 		{
 			log(true,"waitforElement : "+locator);
 			Thread.sleep(10000);
@@ -46,13 +48,13 @@ public class CoreiOSMethods extends FunctionLbrary implements LoggingMethods
 			}
 			
 		}
-//		public void waitForVisible(By locator, int waitTime) throws InterruptedException 
+//		public void waitForVisible(MobileBy locator, int waitTime) throws InterruptedException 
 //		{
 //			WebDriverWait wait = new WebDriverWait(driver,waitTime);
 //			wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 //			
 //		}
-		public String getTextOnLocator(By locator)
+		public String getTextOnLocator(MobileBy locator)
 		{
 			log(true,"getTextOnLocator : "+locator);
 			IOSElement element= (IOSElement) driver.findElement(locator);
@@ -66,7 +68,7 @@ public class CoreiOSMethods extends FunctionLbrary implements LoggingMethods
 			driver.manage().timeouts().setScriptTimeout(seconds, TimeUnit.SECONDS);
 			
 		}
-		public void verifyElementContainsText(By locator, String text)
+		public void verifyElementContainsText(MobileBy locator, String text)
 		{
 			IOSElement element= (IOSElement) driver.findElement(locator);
 			log(true,"verifyElementContainsText");
@@ -80,7 +82,7 @@ public class CoreiOSMethods extends FunctionLbrary implements LoggingMethods
 			}
 			
 		}
-		public void swipeFromElement(By locator,SwipeElementDirection direction, int duration)
+		public void swipeFromElement(MobileBy locator,SwipeElementDirection direction, int duration)
 		{
 			log(true,"Swiping "+direction.toString());
 			IOSElement element= (IOSElement) driver.findElement(locator);
@@ -199,5 +201,12 @@ public class CoreiOSMethods extends FunctionLbrary implements LoggingMethods
 		      int screenWidth = dimensions.getWidth();
 		      int screenHeight = dimensions.getHeight();
 		      driver.swipe(screenWidth/2,screenHeight/2,screenWidth,screenHeight,10);
+		}
+		public void longPressiOS(MobileBy locator, int duration)
+		{
+			log(true,"longPressiOS : "+locator);
+			IOSElement element= (IOSElement) driver.findElement(locator);
+			log(true,"longPressiOS : "+element);
+			element.tap(1, duration);
 		}
 }

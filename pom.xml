@@ -2,24 +2,23 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>MobileAutoDT</groupId>
-  <artifactId>MobileAutomationDT</artifactId>
-  <version>1.1.8</version>
+  <groupId>AutomationMobileDT</groupId>
+  <artifactId>DTAndroidiOS</artifactId>
+  <version>1.1.9.2</version>
   <packaging>jar</packaging>
 
-  <name>Automation</name>
+  <name>AutomationTestsiOS</name>
   <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <dependencies>
+ <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>build</scope>
+      <version>4.12</version>
     </dependency>
     <dependency>
   <groupId>org.testng</groupId>
@@ -27,7 +26,7 @@
   <version>6.8</version>
   <scope>build</scope>
 </dependency>
-     <dependency>
+        <dependency>
     <groupId>log4j</groupId>
     <artifactId>log4j</artifactId>
     <version>1.2.17</version>
@@ -43,28 +42,19 @@
     <version>4.1.2</version>
 </dependency>
       </dependencies>
-        <build>
-    <!-- To define the plugin version in your parent POM -->
-    <pluginManagement>
-      <plugins>
+            <build>
+            <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.6.1</version>
-          <configuration>
+           <configuration>
+          <!-- or whatever version you use -->
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    <!-- To use the plugin goals in your POM or parent POM -->
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
-      </plugin>
-    </plugins>
-  </build>
+          </plugin>
+          </plugins>
+          </build>
+         
 </project>

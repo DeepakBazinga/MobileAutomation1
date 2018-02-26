@@ -9,14 +9,13 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.CapabilityType;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.remote.AndroidMobileCapabilityType;
+
 import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -29,7 +28,7 @@ public class FunctionLbrary implements  LoggingMethods {
 	Properties prop = new Properties();
 	String propFileName = System.getProperty("user.dir")+"/resources/config.properties";
 	InputStream inputStream ;
-	public WebDriver getDriveriOS()
+	public IOSDriver<IOSElement> getDriveriOS()
 	{
 		log(true,"getDriveriOS");
 		return driver;
@@ -39,7 +38,7 @@ public class FunctionLbrary implements  LoggingMethods {
 		log(true,"gertDriverAndroid");
 		return driverA;
 	}
-	public void startServeriOS(String platform, String platformVersion, String appPath, String deviceName, String UDID, String reset) throws MalformedURLException, IOException
+	public void startServeriOS(String platform, String platformVersion, String appPath, String deviceName, String UDID, Boolean noReset) throws MalformedURLException, IOException
 	{
 		log(true,"startServeriOS : Appium Version-1.6.3"+" Device Name-"+deviceName+" iOS Version-"+platformVersion+" UDID-"+UDID+" Application Path-"+appPath);
 		appiumService = AppiumDriverLocalService.buildDefaultService();
@@ -57,6 +56,8 @@ public class FunctionLbrary implements  LoggingMethods {
 	    cap.setCapability(IOSMobileCapabilityType.VERSION, platformVersion);
 	    cap.setCapability("udid", UDID);
 	    cap.setCapability("deviceName",deviceName);
+	    cap.setCapability("fullReset",false);
+	    cap.setCapability("noReset",noReset);
 	    //cap.setCapability("fullReset", true);
 	    cap.setCapability(MobileCapabilityType.APP,f.getAbsolutePath());
 	    //cap.setCapability("noReset", false);
@@ -76,7 +77,7 @@ public class FunctionLbrary implements  LoggingMethods {
 		appiumService.stop();
 	}
 	
-	public void startServerAndroid(String appPath, String reset, String deviceName, String OSVersion, String platform,String appID) throws MalformedURLException
+	public void startServerAndroid(String appPath, Boolean reset, String deviceName, String OSVersion, String platform,String appID) throws MalformedURLException
 	{
 		log(true,"startServeriOS : Appium Version-1.6.3"+" Device Name-"+deviceName+" Android Version-"+OSVersion+" Package Name-"+appID+" Application Path-"+appPath);
 		appiumService = AppiumDriverLocalService.buildDefaultService();
@@ -91,8 +92,8 @@ public class FunctionLbrary implements  LoggingMethods {
         capabilities.setCapability("platformVersion", OSVersion);
         //capabilities.setCapability(CapabilityType.VERSION, OSVersion);
         capabilities.setCapability("platformName", platform);
-        capabilities.setCapability("appPath", app.getAbsolutePath());
-        capabilities.setCapability("udid", appID);
+        capabilities.setCapability("app", app.getAbsolutePath());
+        capabilities.setCapability("package", appID);
         driverA = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         driverA.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}
@@ -111,7 +112,7 @@ public class FunctionLbrary implements  LoggingMethods {
 		prop.load(inputStream);
 		inputStream = new FileInputStream(propFileName);
 		prop.load(inputStream);
-		String reset=prop.getProperty("noReset");
+		Boolean reset=Boolean.valueOf(prop.getProperty("noReset"));
 		String platform=prop.getProperty("platform");
 		String appPath=prop.getProperty("appPath");
 		String OSVersion=prop.getProperty("OSVersion");
@@ -147,5 +148,6 @@ public class FunctionLbrary implements  LoggingMethods {
 				
 		}
 	}
+	
 	
 }
